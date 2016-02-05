@@ -15,10 +15,8 @@ import java.awt.event.ActionEvent;
 public class CalculadoraGates {
 	
 	float num1;
-	float num2;
 	JLabel pantalla = null;
 	
-	private boolean semaforo = false;
 	private char simbol;
 
 	private JFrame frame;
@@ -179,10 +177,17 @@ public class CalculadoraGates {
 		punto.setBounds(172, 221, 161, 42);
 		frame.getContentPane().add(punto);
 		
+		
+		
+		
+		
+		
+		
 		JButton button_11 = new JButton("=");
 		button_11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				operacio();
+				num1=0;
 			}
 		});
 		button_11.setBounds(337, 210, 99, 53);
@@ -193,13 +198,10 @@ public class CalculadoraGates {
 			public void actionPerformed(ActionEvent e) {
 				
 				simbol = '-';
-				String muestra = pantalla.getText();
-				if(semaforo){
-					num2 = Float.parseFloat(muestra);
-				}else{
+				String muestra;
+					muestra = pantalla.getText();
 					num1 = Float.parseFloat(muestra);
-					semaforo = true;
-				}
+				
 				muestra="";
 				pantalla.setText("");
 				
@@ -212,14 +214,10 @@ public class CalculadoraGates {
 		button_13.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String muestra = pantalla.getText();
+				String muestra;
 				simbol = '+';
-				if(semaforo){
-					num2 = Float.parseFloat(muestra);
-				}else{
+					muestra = pantalla.getText();
 					num1 = Float.parseFloat(muestra);
-					semaforo = true;
-				}
 				muestra="";
 				pantalla.setText("");
 				
@@ -229,8 +227,16 @@ public class CalculadoraGates {
 		frame.getContentPane().add(button_13);
 	}
 	
+	
+	
+	
+	
+	
+	
+	
 	public void ponerNumeros(char numero){
 		String muestra;
+		pantalla.setText("");
 		if(pantalla.getText()=="0"){muestra = Character.toString(numero);
 		}else{muestra = pantalla.getText() + numero;
 		}
@@ -239,16 +245,32 @@ public class CalculadoraGates {
 	}
 	
 	public void operacio(){
+		String resultat;
+		String num2 = pantalla.getText();
+		
 			switch(simbol){
 			case '+':
-				num1 += num2;
-				pantalla.setText("num1");
+				num1 = num1 + Float.parseFloat(num2);
+				resultat = Float.toString(num1);
+				comprova(resultat);
+				pantalla.setText(resultat);
 				break;
 			case '-':
-				num1-= num2;
-				pantalla.setText("num1");
+				num1-= Float.parseFloat(num2);
+				resultat = Float.toString(num1);
+				comprova(resultat);
+				pantalla.setText(resultat);
 				break;
 			}
             
+	}
+
+
+
+	private void comprova(String resultat) {
+		if(resultat == "666"){
+			resultat = "ERROR";
+		}
+		
 	}
 }
