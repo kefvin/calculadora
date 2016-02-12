@@ -16,6 +16,7 @@ public class CalculadoraGates {
 	
 	float num1;
 	JLabel pantalla = null;
+	boolean borra = false;
 	
 	private char simbol;
 
@@ -71,6 +72,7 @@ public class CalculadoraGates {
 		siete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				char numero = '7';
+				cBorrar();
 				ponerNumeros(numero);
 			}
 		});
@@ -81,6 +83,7 @@ public class CalculadoraGates {
 		ocho.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				char numero = '8';
+				cBorrar();
 				ponerNumeros(numero);
 			}
 		});
@@ -91,6 +94,7 @@ public class CalculadoraGates {
 		nueve.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				char numero = '9';
+				cBorrar();
 				ponerNumeros(numero);
 			}
 		});
@@ -101,6 +105,7 @@ public class CalculadoraGates {
 		seis.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				char numero = '6';
+				cBorrar();
 				ponerNumeros(numero);
 			}
 		});
@@ -111,6 +116,7 @@ public class CalculadoraGates {
 		cinco.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				char numero = '5';
+				cBorrar();
 				ponerNumeros(numero);
 			}
 		});
@@ -121,6 +127,7 @@ public class CalculadoraGates {
 		cuatro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				char numero = '4';
+				cBorrar();
 				ponerNumeros(numero);
 			}
 		});
@@ -131,6 +138,7 @@ public class CalculadoraGates {
 		tres.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				char numero = '3';
+				cBorrar();
 				ponerNumeros(numero);
 			}
 		});
@@ -141,6 +149,7 @@ public class CalculadoraGates {
 		dos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				char numero = '2';
+				cBorrar();
 				ponerNumeros(numero);
 			}
 		});
@@ -151,6 +160,7 @@ public class CalculadoraGates {
 		uno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				char numero = '1';
+				cBorrar();
 				ponerNumeros(numero);
 			}
 		});
@@ -161,6 +171,7 @@ public class CalculadoraGates {
 		zero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				char numero = '0';
+				cBorrar();
 				ponerNumeros(numero);
 			}
 		});
@@ -188,6 +199,7 @@ public class CalculadoraGates {
 			public void actionPerformed(ActionEvent e) {
 				operacio();
 				num1=0;
+				borra = true;
 			}
 		});
 		button_11.setBounds(337, 210, 99, 53);
@@ -197,13 +209,17 @@ public class CalculadoraGates {
 		button_12.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				String muestra = pantalla.getText();;
 				simbol = '-';
-				String muestra;
-					muestra = pantalla.getText();
+				if(num1 == 0){
+					
 					num1 = Float.parseFloat(muestra);
-				
+				}else{
+					float num = Float.parseFloat(muestra);
+					num1 += num;
+				}
 				muestra="";
-				pantalla.setText("");
+				pantalla.setText("");;
 				
 			}
 		});
@@ -214,10 +230,15 @@ public class CalculadoraGates {
 		button_13.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String muestra;
+				String muestra = pantalla.getText();;
 				simbol = '+';
-					muestra = pantalla.getText();
+				if(num1 == 0){
+					
 					num1 = Float.parseFloat(muestra);
+				}else{
+					float num = Float.parseFloat(muestra);
+					num1 += num;
+				}
 				muestra="";
 				pantalla.setText("");
 				
@@ -236,12 +257,15 @@ public class CalculadoraGates {
 	
 	public void ponerNumeros(char numero){
 		String muestra;
-		pantalla.setText("");
 		if(pantalla.getText()=="0"){muestra = Character.toString(numero);
 		}else{muestra = pantalla.getText() + numero;
 		}
 		pantalla.setText(muestra);
 		
+	}
+	
+	public void cBorrar(){
+		if(borra==true){pantalla.setText("");borra=false;}
 	}
 	
 	public void operacio(){
@@ -252,14 +276,16 @@ public class CalculadoraGates {
 			case '+':
 				num1 = num1 + Float.parseFloat(num2);
 				resultat = Float.toString(num1);
-				comprova(resultat);
+				resultat = comprova(num1);
 				pantalla.setText(resultat);
+				num1 = 0;
 				break;
 			case '-':
 				num1-= Float.parseFloat(num2);
 				resultat = Float.toString(num1);
-				comprova(resultat);
+				resultat = comprova(num1);
 				pantalla.setText(resultat);
+				num1 = 0;
 				break;
 			}
             
@@ -267,10 +293,11 @@ public class CalculadoraGates {
 
 
 
-	private void comprova(String resultat) {
-		if(resultat == "666"){
-			resultat = "ERROR";
+	private String comprova(float rebut) {
+		String resultat = Float.toString(rebut);
+		if(rebut >= 666.0 && rebut <= 666.9){
+			return resultat = "ERROR";
 		}
-		
+		return resultat;	
 	}
 }
